@@ -82,7 +82,8 @@ public class AuxMov : MonoBehaviour
         if(inp.magnitude > 0.1f){
             float angle = Mathf.Atan2(inp.z, inp.x)*Mathf.Rad2Deg + cameraF.transform.rotation.eulerAngles.y;
 	        transform.rotation = Quaternion.AngleAxis(angle - 90, Vector3.up);
-            rb.MovePosition(transform.position + new Vector3(0, 0, power*speed*Time.deltaTime*inp.normalized.magnitude));
+            //rb.MovePosition(transform.position + new Vector3(0, 0, power*speed*Time.deltaTime*inp.normalized.magnitude));
+            transform.Translate(new Vector3(0, 0, power*speed*Time.deltaTime*inp.normalized.magnitude));
         }
     }
 

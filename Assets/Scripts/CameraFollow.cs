@@ -8,6 +8,7 @@ public class CameraFollow : MonoBehaviour
     public GameObject cam, camAux;
     public float smoothTime = 0.5f;
     public float smoothTime2 = 0.5f;
+    public float invAxis = 1f;
     float smoothSpeed = 0.0f; 
     float smoothSpeedX = 0.0f; 
     float smoothSpeedY = 0.0f; 
@@ -24,12 +25,12 @@ public class CameraFollow : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        altC = Mathf.Clamp(altC + speed*0.1f*Time.deltaTime*Input.GetAxis("rstickv"), minAltC, maxAltC);
+        altC = Mathf.Clamp(altC + invAxis*speed*0.1f*Time.deltaTime*Input.GetAxis("rstickv"), minAltC, maxAltC);
         this.gameObject.transform.Rotate(0, Time.deltaTime*speed*Input.GetAxis("rstickh"), 0, Space.World);
         if(Input.GetKey(KeyCode.UpArrow))
-            altC = Mathf.Clamp(altC + speed*0.07f*Time.deltaTime, minAltC, maxAltC);
+            altC = Mathf.Clamp(altC + invAxis*speed*0.07f*Time.deltaTime, minAltC, maxAltC);
         if(Input.GetKey(KeyCode.DownArrow))
-            altC = Mathf.Clamp(altC - speed*0.07f*Time.deltaTime, minAltC, maxAltC);
+            altC = Mathf.Clamp(altC - invAxis*speed*0.07f*Time.deltaTime, minAltC, maxAltC);
         if(Input.GetKey(KeyCode.LeftArrow))
             this.gameObject.transform.Rotate(0, -Time.deltaTime*speed, 0, Space.World);
         if(Input.GetKey(KeyCode.RightArrow))
