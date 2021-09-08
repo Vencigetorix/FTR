@@ -447,6 +447,7 @@ MonoBehaviour:
   camAux: {fileID: 730340858}
   smoothTime: 0.3
   smoothTime2: 0.2
+  invAxis: 1
   maxDRC: 3
   speed: 250
   altC: 0
@@ -537,19 +538,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pd: {fileID: 2008414120}
   Protein: 100
-  Carbs: 0
+  Carbs: 100
   Fats: 100
-  Hunger: 0
+  Hunger: 100
   Hydration: 100
-  MinProtein: 0
-  MinCarbs: 0
-  MinFats: 0
-  MinHydration: 0
-  MinHunger: 0
-  ProteinDecreaseRate: 5
-  CarbsDecreaseRate: 5
-  FatsDecreaseRate: 5
-  HydrationDecreaseRate: 5
+  ProteinDecreaseRate: 1
+  CarbsDecreaseRate: 1
+  FatsDecreaseRate: 1
+  HydrationDecreaseRate: 1
   Dead: 0
 --- !u!114 &2008414122
 MonoBehaviour:

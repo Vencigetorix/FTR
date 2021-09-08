@@ -28,8 +28,11 @@ public class PlayerData : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(isBleed) speedBleeding = Mathf.Clamp(speedBleeding - 0.2f, 0, 15f);
-        temp = temp + Time.deltaTime*(env.temp - temp)*speedTemp*((2f-ropa)/2f)*Mathf.Clamp(100 - hungry.Carbs, 0.1f, 1f); //Falta la relación con el inventario y sus variables de alimento.
+        if(isBleed) speedBleeding = Mathf.Clamp(speedBleeding + 0.05f*Time.deltaTime, 0f, 3f);
+        else speedBleeding = Mathf.Clamp(speedBleeding - 0.5f*Time.deltaTime, 0f, 3f);
+        blood -= speedBleeding*Time.deltaTime;
+        temp = temp + Time.deltaTime*(env.temp - temp)*speedTemp*((2f-ropa)/2f)*Mathf.Clamp((100f - hungry.Carbs)/100f, 0.1f, 1f); //Falta la relación con el inventario y sus variables de alimento.
+        Debug.Log(Mathf.Clamp((100f - hungry.Carbs)/100f, 0.1f, 1f));
         if(isInf){
             levelInf = levelInf += Time.deltaTime*(speedInf);
         }else if(isRec){
@@ -39,7 +42,7 @@ public class PlayerData : MonoBehaviour
         if(blood <= 0f){
             hungry.Die();
         }
-        Debug.Log(rb.velocity);
+        //Debug.Log(rb.velocity);
     }
 
     void OnTriggerEnter(Collider col){
