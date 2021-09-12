@@ -17,7 +17,7 @@ public class Environment : MonoBehaviour
     {
         day = 0;
         clima = 0;
-        temp = 19.0f;
+        //temp = 19.0f;
         hora = 10.0f;
         speedTime = 1.0f;
     }
