@@ -4,15 +4,14 @@ using UnityEngine;
 
 public class AuxMov : MonoBehaviour
 {
-    // Start is called before the first frame update
     public float speed = 1, force, power = 1f;
-    //public Transform bA, bB, bX, bY;
-
     Vector3 scaled = Vector3.one * 0.3f;
     Vector3 unscaled = Vector3.one * 0.2377f;
     Vector3 inp;
     public GameObject cameraF;
     Rigidbody rb;
+    public GameObject fogata;
+    public FireController fc;
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -63,6 +62,8 @@ public class AuxMov : MonoBehaviour
         }
         if(Input.GetKeyDown(KeyCode.JoystickButton5)){
             Debug.Log("RB");
+            GameObject fire = Instantiate(fogata, new Vector3(0, 0, 0) + this.gameObject.transform.position, Quaternion.identity);
+            fc.AddFire(fire.GetComponent<Fire>());
         }
         if(Input.GetKeyDown(KeyCode.JoystickButton6)){
             Debug.Log("Back");
@@ -86,5 +87,7 @@ public class AuxMov : MonoBehaviour
             transform.Translate(new Vector3(0, 0, power*speed*Time.deltaTime*inp.normalized.magnitude));
         }
     }
+
+
 
 }
