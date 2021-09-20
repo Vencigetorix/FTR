@@ -8,7 +8,6 @@ public class Hungry : MonoBehaviour
     public float Protein, Carbs, Fats, Hunger, Hydration;
     //[HideInInspector]
     public float ProteinDecreaseRate, CarbsDecreaseRate, FatsDecreaseRate, HydrationDecreaseRate;
-
     public bool Dead;
 
    
@@ -16,22 +15,30 @@ public class Hungry : MonoBehaviour
     {
         if (!Dead)
         {
-            float coeP = 0f;
-            for (int i = 0; i < pd.body.Length; i++)
-                coeP += pd.body[i];
-            coeP = Mathf.Clamp(coeP, 0f, 0.5f) + 0.5f;
-            float coePB = 2f - pd.blood/100f;
-            Protein = Mathf.Clamp(Protein - ProteinDecreaseRate * Time.deltaTime * coeP * coePB, 0f, 100f);
-
-            //float coeCDR = 1f - Mathf.Clamp(1f - pd.temp/36.5f, 0f, 0.5f) + 0.5f;
-            float coeCDR = Mathf.Clamp(1f - pd.temp/36.5f, 0f, 0.5f) + 0.5f;
-            if(pd.isInf) coeCDR += 1f;
-            //Debug.Log(coeCDR);
-            Carbs = Mathf.Clamp(Carbs - CarbsDecreaseRate * Time.deltaTime * coeCDR, 0f, 100f);
-            Carbs += 0f;
-            float coeFats = 1f - Mathf.Clamp(100 - pd.levelRad, 0f, 0.5f) + 0.5f;
-            Fats = Mathf.Clamp(Fats - FatsDecreaseRate * Time.deltaTime * coeFats, 0f, 100f);
+            //Proteinas
+            float coeP = 0;
+            for (int i = 0; i < pd.body.Length; i++)//Busca partes heridas
+                if(pd.body[i] >= 0){
+                    coeP = 1f;
+                    break;
+                }
+            float coePB = 1f - pd.blood/100f;
+            float PDR = (1f + coeP + coePB)/3f;
+            Protein = Mathf.Clamp(Protein - ProteinDecreaseRate * Time.deltaTime * PDR, 0f, 100f);
+            //Carbohidratos
+            float coeC = 0, coeCI;
+            if (pd.temp < 35f)
+                coeC = (35f - pd.temp);
+            coeCI = pd.levelInf/100f;
+            float CDR = (1f + coeC + coeCI)/3;
+            Carbs = Mathf.Clamp(Carbs - CarbsDecreaseRate * Time.deltaTime * CDR, 0f, 100f);
+            //Grasas
+            float coeF = pd.levelRad/100f;
+            float FDR = (1 + coeF)/2f;
+            Fats = Mathf.Clamp(Fats - FatsDecreaseRate * Time.deltaTime * FDR, 0f, 100f);
+            //Agua
             Hydration = Mathf.Clamp(Hydration - HydrationDecreaseRate * Time.deltaTime, 0f, 100f);
+            //Comida general
             Hunger = (Protein + Carbs + Fats)/3;
         }
 
@@ -47,6 +54,5 @@ public class Hungry : MonoBehaviour
     {
         Dead = true;
         //Debug.Log("Player is Dead");
-        //return;
     }
 }

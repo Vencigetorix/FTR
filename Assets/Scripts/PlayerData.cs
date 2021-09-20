@@ -4,18 +4,15 @@ using UnityEngine;
 
 public class PlayerData : MonoBehaviour
 {
-    public float temp;
+
     Rigidbody rb;
     public Hungry hungry;
     public FireController fc;
     public Environment env;
-    public float idealTemp, lowTemp = 34.0f, highTemp = 40.0f, speedTemp = 1f, HeatSource = 0f;
     public bool isInf = false, isRec = false, isBleed = false;
+    public float temp, speedTemp = 1f, HeatSource = 0f;
     public float levelInf = 0f, speedInf = 1.0f, speedRec, speedBleeding = 0f, levelRad = 0f;
-    public float ropa = 100f; // de 0 a 100
-    public float blood = 100f;
-    public float salud = 100f;
-    public float maxDistance = 5f;
+    public float ropa = 100f, blood = 100f, salud = 100f; // de 0 a 100
     public int[] body; //0 - Cabeza, 1 - Pecho/abdomen, 2 - Brazos, 3 - Piernas.
     //0 - Sano, 1 - Daño muscular, 2 - Fractura
 
@@ -29,26 +26,23 @@ public class PlayerData : MonoBehaviour
     void Update()
     {
         //Bleeding
-        if(isBleed) speedBleeding = Mathf.Clamp(speedBleeding + 0.05f*Time.deltaTime, 0f, 3f);
-        else speedBleeding = Mathf.Clamp(speedBleeding - 0.5f*Time.deltaTime, 0f, 3f);
+        speedBleeding = (isBleed)?Mathf.Clamp(speedBleeding + 0.05f*Time.deltaTime, 0f, 3f):Mathf.Clamp(speedBleeding - 0.5f*Time.deltaTime, 0f, 3f);
         blood -= speedBleeding*Time.deltaTime;
         //Temperatura
         HeatSource = fc.temp;
         float coeTemp = ((Temp()*5 + Ropa() + HungryN()*1.5f))/7.5f;
         coeTemp-=0.2f;
         coeTemp*=speedTemp;
-        //Debug.Log(coeTemp);
-        temp = temp + coeTemp*Time.deltaTime;
+        temp = Mathf.Clamp(temp + coeTemp*Time.deltaTime, 34f, 40f);
+        if(temp < 35f){
+            Debug.Log("Baja temperatura");
+        }else if(temp > 39f){
+            Debug.Log("Alta temperatura");
+        }
         //Infección
-        if(isInf){
-            levelInf = levelInf += Time.deltaTime*(speedInf);
-        }else if(isRec){
-            levelInf = levelInf -= Time.deltaTime*(speedRec);
-        }
+        levelInf = (isInf)?levelInf += Time.deltaTime*(speedInf):levelInf -= Time.deltaTime*(speedRec);
         //Muerte por sangre
-        if(blood <= 0f){
-            hungry.Die();
-        }
+        if(blood <= 0f) hungry.Die();
     }
 
     void OnTriggerEnter(Collider col){
