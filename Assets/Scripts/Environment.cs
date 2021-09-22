@@ -13,7 +13,7 @@ public class Environment : MonoBehaviour
     public float speedTime; 
     public int day;
     public Light sun;
-    public float visibility;
+    public float visibility; //Visibilidad [0:4] nivelesde visibilidad 
     void Start()
     {
         day = 0;
@@ -48,21 +48,27 @@ public class Environment : MonoBehaviour
                 switch (clima){
                     case 0:
                         temp = 8.0f;
+                        visibility=4.0f;
                         break;
                     case 1:
                         temp = 4.0f;
+                        visibility=4.0f;
                         break;
                     case 2:
                         temp = 0.0f;
+                        visibility=3.0f;
                         break;
                     case 3:
                         temp = -4.0f;
+                        visibility=2.0f;
                         break;
                     case 4:
                         temp = -8.0f;
+                        visibility=1.0f;
                         break;
                     case 5:
                         temp = -12.0f;
+                        visibility=0.0f;
                         break;
                 }
             }            
