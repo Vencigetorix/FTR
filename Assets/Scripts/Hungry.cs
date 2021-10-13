@@ -38,7 +38,7 @@ public class Hungry : MonoBehaviour
             float FDR = (1 + coeF)/2f; // Fats Decrease Rate
             Fats = Mathf.Clamp(Fats - FatsDecreaseRate * Time.deltaTime * FDR, 0f, 100f);
             //Agua 
-            float HDR = (coeC*1 + coeCI*1 + coePB*1 + coeP*1 + coeF*1 + coe*1)/6f; //Hyd Decrease Rate
+            float HDR = (coeC*1 + coeCI*1 + coePB*1 + coeP*1 + coeF*1)/5f; //Hyd Decrease Rate
             Hydration = Mathf.Clamp(Hydration - HydrationDecreaseRate * Time.deltaTime * HDR, 0f, 100f);
             //Comida general
             Hunger = (Protein + Carbs + Fats)/3;
