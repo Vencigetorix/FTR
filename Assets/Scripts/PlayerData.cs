@@ -30,7 +30,7 @@ public class PlayerData : MonoBehaviour
         blood -= speedBleeding*Time.deltaTime;
         //Temperatura
         HeatSource = fc.temp;
-        float coeTemp = ((Temp()*5 + Ropa() + HungryN()*1.5f))/7.5f;
+        float coeTemp = (Temp()*5 + Ropa() + HungryN()*1.5f + (levelInf/100f)*(-1))/7.5f;
         coeTemp-=0.2f;
         coeTemp*=speedTemp;
         temp = Mathf.Clamp(temp + coeTemp*Time.deltaTime, 34f, 40f);

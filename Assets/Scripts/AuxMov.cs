@@ -5,6 +5,7 @@ using UnityEngine;
 public class AuxMov : MonoBehaviour
 {
     public float speed = 1, force, power = 1f;
+    public float actividad = 0f;
     Vector3 scaled = Vector3.one * 0.3f;
     Vector3 unscaled = Vector3.one * 0.2377f;
     Vector3 inp;
@@ -40,16 +41,13 @@ public class AuxMov : MonoBehaviour
         }
         if(Input.GetKeyDown(KeyCode.JoystickButton0)){
             Debug.Log("A");
-            rb.AddForce(Vector3.up*force, ForceMode.Impulse);
+            //rb.AddForce(Vector3.up*force, ForceMode.Impulse);
         }
         if(Input.GetKeyDown(KeyCode.JoystickButton1)){
             Debug.Log("B");
         }
         if(Input.GetKey(KeyCode.JoystickButton1)){
             Debug.Log("B");
-            power = 1.5f;
-        }else{
-            power = 1f;
         }
         if(Input.GetKeyDown(KeyCode.JoystickButton2)){
             Debug.Log("X");
